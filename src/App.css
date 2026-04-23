@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #3b0a0a, #1e293b);
+  color: #ffffff;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #7a0c0c; /* deep red */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+  margin: 0;
+  color: #facc15; /* gold */
+  font-size: 24px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #facc15; /* gold hover */
+}
+
+/* PAGE CONTENT */
+.content {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.page-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.page-card h2 {
+  margin-top: 0;
+  font-size: 28px;
+  color: #facc15; /* gold heading */
+}
+
+.page-card p {
+  color: #e5e7eb;
+}
+
+/* INPUT AREA */
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+/* BUTTON */
+.input-group button {
+  background-color: #facc15; /* gold */
+  color: #3b0a0a; /* dark red text */
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.input-group button:hover {
+  background-color: #eab308;
+  transform: scale(1.05);
+}
