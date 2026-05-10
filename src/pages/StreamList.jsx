@@ -4,14 +4,22 @@ import { FaTrash, FaEdit, FaCheck, FaSave, FaTimes } from 'react-icons/fa';
 function StreamList() {
   const [item, setItem] = useState('');
   const [streamList, setStreamList] = useState(() => {
-  const savedList = localStorage.getItem('streamList');
-  return savedList ? JSON.parse(savedList) : [];
-});
+    try {
+      const savedList = localStorage.getItem('streamList');
+      return savedList ? JSON.parse(savedList) : [];
+    } catch {
+      return [];
+    }
+  });
   const [editingId, setEditingId] = useState(null);
   const [editedText, setEditedText] = useState('');
 useEffect(() => {
-  localStorage.setItem('streamList', JSON.stringify(streamList));
-}, [streamList]);
+    try {
+      localStorage.setItem('streamList', JSON.stringify(streamList));
+    } catch (error) {
+      console.error('Failed to save to localStorage:', error);
+    }
+  }, [streamList]);
 
   const handleAdd = () => {
     if (item.trim() === '') return;
@@ -66,15 +74,21 @@ useEffect(() => {
       <h2>My StreamList</h2>
       <p>Create your personal movie or show watch list.</p>
 
-      <div className="input-group">
+      <form
+        className="input-group"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleAdd();
+        }}
+      >
         <input
           type="text"
           placeholder="Enter a movie or show title"
           value={item}
           onChange={(e) => setItem(e.target.value)}
         />
-        <button onClick={handleAdd}>Add</button>
-      </div>
+        <button type="submit">Add</button>
+      </form>
 
       <div className="list-area">
         {streamList.length === 0 ? (
@@ -95,10 +109,10 @@ useEffect(() => {
                   />
 
                   <div className="action-buttons">
-                    <button onClick={() => handleSave(movie.id)}>
+                    <button onClick={() => handleSave(movie.id)} aria-label="Save changes">
                       <FaSave />
                     </button>
-                    <button onClick={handleCancel}>
+                    <button onClick={handleCancel} aria-label="Cancel editing">
                       <FaTimes />
                     </button>
                   </div>
@@ -108,13 +122,13 @@ useEffect(() => {
                   <span>{movie.title}</span>
 
                   <div className="action-buttons">
-                    <button onClick={() => handleComplete(movie.id)}>
+                    <button onClick={() => handleComplete(movie.id)} aria-label={movie.completed ? 'Mark as unwatched' : 'Mark as watched'}>
                       <FaCheck />
                     </button>
-                    <button onClick={() => handleEdit(movie)}>
+                    <button onClick={() => handleEdit(movie)} aria-label="Edit title">
                       <FaEdit />
                     </button>
-                    <button onClick={() => handleDelete(movie.id)}>
+                    <button onClick={() => handleDelete(movie.id)} aria-label="Delete movie">
                       <FaTrash />
                     </button>
                   </div>

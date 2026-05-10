@@ -15,6 +15,9 @@ function Movies() {
     setError('');
     setMovies([]);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
@@ -25,8 +28,11 @@ function Movies() {
             Authorization: `Bearer ${tmdbToken}`,
             accept: 'application/json',
           },
+          signal: controller.signal,
         }
       );
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error('Unable to retrieve movie data.');
@@ -35,7 +41,11 @@ function Movies() {
       const data = await response.json();
       setMovies(data.results || []);
     } catch (err) {
-      setError(err.message);
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Please try again.');
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -60,6 +70,11 @@ function Movies() {
       {error && <p className="error-message">{error}</p>}
 
       <div className="movie-results">
+        {movies.length === 0 && !loading && (
+          <p className="empty-message">
+            {searchTerm ? 'No movies found matching your search.' : 'Start searching for movies above.'}
+          </p>
+        )}
         {movies.map((movie) => (
           <div className="movie-card" key={movie.id}>
             {movie.poster_path ? (
