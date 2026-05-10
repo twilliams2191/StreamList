@@ -153,3 +153,55 @@ body {
   font-size: 16px;
   margin-right: 12px;
 }
+.movie-page {
+  max-width: 900px;
+}
+
+.movie-results {
+  margin-top: 30px;
+  display: grid;
+  gap: 18px;
+}
+
+.movie-card {
+  display: flex;
+  gap: 18px;
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 16px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.movie-card img {
+  width: 110px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.poster-placeholder {
+  width: 110px;
+  min-width: 110px;
+  height: 165px;
+  background-color: rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+.movie-info h3 {
+  margin: 0 0 8px;
+  color: #facc15;
+}
+
+.movie-info p {
+  margin-bottom: 8px;
+}
+
+.error-message {
+  color: #fecaca;
+  margin-top: 20px;
+}

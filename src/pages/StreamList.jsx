@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaTrash, FaEdit, FaCheck, FaSave, FaTimes } from 'react-icons/fa';
 
 function StreamList() {
   const [item, setItem] = useState('');
-  const [streamList, setStreamList] = useState([]);
+  const [streamList, setStreamList] = useState(() => {
+  const savedList = localStorage.getItem('streamList');
+  return savedList ? JSON.parse(savedList) : [];
+});
   const [editingId, setEditingId] = useState(null);
   const [editedText, setEditedText] = useState('');
+useEffect(() => {
+  localStorage.setItem('streamList', JSON.stringify(streamList));
+}, [streamList]);
 
   const handleAdd = () => {
     if (item.trim() === '') return;
