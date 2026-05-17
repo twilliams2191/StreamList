@@ -56,15 +56,21 @@ function Movies() {
       <h2>Movie Search</h2>
       <p>Search for movie information using the TMDB API.</p>
 
-      <div className="input-group">
-        <input
-          type="text"
-          placeholder="Search for a movie"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button onClick={searchMovies}>Search</button>
-      </div>
+<form
+  className="input-group"
+  onSubmit={(e) => {
+    e.preventDefault();
+    searchMovies();
+  }}
+>
+  <input
+    type="text"
+    placeholder="Search for a movie"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <button type="submit">Search</button>
+</form>
 
       {loading && <p className="empty-message">Loading movies...</p>}
       {error && <p className="error-message">{error}</p>}
